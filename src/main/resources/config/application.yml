@@ -1,18 +1,30 @@
 server:
-    port: 8090
+    port: 9000
 
 spring:
-    jersey:
-        type: filter
-    jpa:
-        openInView: false
-        show_sql: true
-        generate-ddl: false
-        hibernate:
-            ddl-auto: none
-            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
-        properties:
-             hibernate.cache.use_second_level_cache: false
-             hibernate.cache.use_query_cache: false
-             hibernate.generate_statistics: false
-             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+  jersey:
+      type: filter
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:sample;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;TRACE_LEVEL_SYSTEM_OUT=1;INIT=RUNSCRIPT from 'classpath:sql/db_init.h2.sql'
+    username: sa
+    password: 
+    max-wait: 1000
+    max-active: 50
+    validation-query: "SELECT 1" 
+    connection-test-query: "SELECT 1" 
+    test-on-borrow: false
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    database: H2
+    openInView: false
+    show_sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+    properties:
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
